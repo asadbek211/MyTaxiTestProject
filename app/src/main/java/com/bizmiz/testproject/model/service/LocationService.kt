@@ -6,7 +6,6 @@ import android.app.Service
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.bizmiz.testproject.R
 import com.bizmiz.testproject.data.db.LocationModel
@@ -44,7 +43,11 @@ class LocationService : Service() {
     private fun createChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel =
-                NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+                NotificationChannel(
+                    CHANNEL_ID,
+                    CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
             channel.setSound(null, null)
             notificationManager.createNotificationChannel(channel)
         }
@@ -63,7 +66,6 @@ class LocationService : Service() {
         locationClient.getLocationUpdates(DEFAULT_INTERVAL_IN_MILLISECONDS)
             .catch { e -> e.printStackTrace() }
             .onEach { location ->
-                Log.d("@@@", "${location.latitude}, ${location.longitude}")
                 locationRepository.addLocation(
                     LocationModel(
                         latitude = location.latitude,
@@ -80,5 +82,6 @@ class LocationService : Service() {
         super.onTaskRemoved(rootIntent)
 
     }
+
     override fun onBind(intent: Intent?): IBinder? = null
 }

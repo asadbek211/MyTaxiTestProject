@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Build
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutLinearInEasing
@@ -182,7 +180,6 @@ object HomeScreen : Screen {
 
                 is MainState.GetLocation -> {
                     val data = (state as MainState.GetLocation).location
-                    Log.d("@@@", data.toString())
                     currentLocation = data
                     progressShow = false
                 }
